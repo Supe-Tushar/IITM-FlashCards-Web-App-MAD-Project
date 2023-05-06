@@ -1,0 +1,21 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="alert" id="Error_{{ loop.index0 }}" role="alert">
+                    <span id="alertError" >{{ message }}</span>
+                    <button type="button" class="close" onclick="hideError({{ loop.index0 }})">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% else %}
+                <div class="alert" id="Success_{{ loop.index0 }}" role="alert">
+                    <span id="alertSuccess">{{ message }}</span>
+                    <button type="button" class="close" onclick="hideSuccess({{ loop.index0 }})">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}

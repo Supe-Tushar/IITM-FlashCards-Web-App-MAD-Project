@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/signup.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <title>Sign Up</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a href="/login">Login</a>
+		<a class="active" href="/signup">Sign Up</a>
+	</div>
+
+    <h1>Sign Up Form</h1>
+
+    {% include 'flashMessage.html' %}
+
+    <form action="/signup" method="post">
+        <div class="container">
+            <label for="uname"><b>Username: </b></label>
+            <br />
+            <p style="font-size:12px;" >(Username must contain only lower case letters and digits and should be 4 to 10 characters long.) </p>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+            <br />
+            <br />
+            <label for="password1"><b>Password: </b></label>
+            <br />
+            <p style="font-size:12px;" >(Password must contain only lower case letters and digits and should be 4 to 10 characters long.) </p>
+            <input type="password" placeholder="Enter Password" name="password1" required>
+            <br />
+            <br />
+            <label for="password2"><b>Repeat Password: </b></label>
+            <br />
+            <input type="password" placeholder="Re-Enter Password" name="password2" required>
+            <br />
+            <br />
+            <br />
+            <button class="submit_button" type="submit">Sign Up</button>
+        </div>
+    </form>
+
+</body>
+</html>

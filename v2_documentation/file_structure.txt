@@ -1,0 +1,46 @@
+.\code\
+│
+├── application\
+│   ├── api.py
+│   ├── config.py
+│   ├── controllers.py
+│   ├── database.py
+│   ├── errors.py
+│   ├── models.py
+│   ├── redis_cache.py
+│   ├── workers.py
+│   └── __init__.py
+│
+├── databases\
+│   └── flashCardDB.sqlite3
+│
+├── Exports\
+│   ├── Deck A.csv
+│   ├── Deck imported.csv
+│   └── Report_1649925543_04-14-2022_Thu_14-09-03.pdf
+│
+├── Imports\
+│   ├── deck_import_A_eng_words.csv
+│   ├── deck_import_B_eng_words.csv
+│   └── deck_import_C_hindi_eng.csv
+│
+├── static\
+│   ├── css\
+│   │
+│   ├── img\
+│   │   └── report.jpg
+│   │
+│   └── js\
+│       └── home.js
+│
+│
+├── templates\
+│   ├── alerts.html
+│   ├── export_deck.html
+│   ├── home.html
+│   ├── report.html
+│   └── report_mail.html
+│
+├── app.py
+├── readme.txt
+└── requirements.txt

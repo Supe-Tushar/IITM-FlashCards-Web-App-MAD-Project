@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
+    <title>Dashboard</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a class="active" href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+    <h1>Flashcard Application</h1>
+    <p style="font-size:12px;">(Last reviewed deck is highlighted in green colour.)</p>
+
+    {% include 'flashMessage.html' %}
+
+    <br />
+    <div class="tableBlock">
+        <table id = "all_decks" class="table">
+                <tr>
+                    <th style="width: 60px;">Srno</th>
+                    <th >Deck Name</th>
+                    <th >Description</th>
+                    <th style="width: 200px;">Last Reviewed Time</th>
+                    <th style="width: 60px;">Last Reviewed Score</th>
+                    <th style="width: 60px;">Overall Score</th>
+                    <th style="width: 60px;">Review</th>
+                    <th style="width: 60px;">Edit</th>
+                    <th style="width: 60px;">Delete</th>
+                    <th style="width: 60px;">Export</th>
+                </tr>
+
+                {% for deck in decks %}
+                <tr>
+                    <td>{{loop.index0 + 1}}</td>
+                    <td>{{deck.deckname}}</td>
+                    <td>{{deck.deckdesc}}</td>
+                    <td>{{deck.ltime|timestamp_to_datetime}}</td>
+                    <td>{{deck.lscore}}</td>
+                    <td>{{deck.oscore}}</td>
+                    <td><a href="/deck/{{ deck.deckid }}/review" type="button">Review</a></td>
+                    <td><a href="/deck/{{ deck.deckid }}/edit" type="button">Edit</a></td>
+                    <td><a href="/deck/{{ deck.deckid }}/delete" type="button">Delete</a></td>
+                    <td><a href="/deck/{{ deck.deckid }}/export" type="button">Export</a></td>
+                </tr>
+                {% endfor %}
+
+		</table>
+        <p id="lastReviewedRowId" style="display: none" >{{ last_rev_id }}</p>
+    </div>
+
+    <div class="import_deck">
+        <br />
+        <button type="button" class="button" id="addDeck" onclick="location.href='/deck/add'" >
+         Add a deck (Manually)</button>
+        <br />
+        <button type="button" class="button" id="importDeck" onclick="location.href='/deck/import'" >
+         Import a deck (From CSV file)</button>
+    </div>
+
+     <script type="text/javascript" src="/static/js/dashboard.js"></script>
+
+</body>
+</html>
+
+
+<!--
+Delete deck form :
+<form action="/api/deck/{ deck.deckid }" method="post" id="form_delete_{ loop.index0 }">
+    <input type="hidden" name="_method" value="delete">
+    <a href="javascript:{}" onclick="document.getElementById('form_delete_'+{ loop.index0 }).submit();">Delete</a>
+</form>
+-->

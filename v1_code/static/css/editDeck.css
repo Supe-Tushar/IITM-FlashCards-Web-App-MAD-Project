@@ -1,0 +1,117 @@
+
+*{
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: rgba(3, 3, 3, 0.86);
+  margin: 5px;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: Arial;
+
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #1259ef;
+  color: white;
+}
+
+
+table{
+  table-layout: auto;
+  width: 100%;
+}
+
+table, th, td {
+  /*border: 1px solid black;*/
+  border-collapse: collapse;
+  padding: 10px;
+  border-radius: 10px;
+
+}
+
+th {
+  text-align: center;
+  background: #009879;
+  color: white;
+}
+
+
+.table tr:nth-child(odd) td {
+  background-color: #efecec;
+}
+
+.table tr:nth-child(even) td {
+  background-color: #e0dbdb;
+}
+
+
+h1{
+  /*font-family: Arial;*/
+  /*text-align: center;*/
+  /*font-weight: bold;*/
+  /*font-size: 40px;*/
+  /*color: #002aff;*/
+}
+
+a {
+  color: #002aff;
+  text-decoration: none;
+  /*font-family: Arial;*/
+  /*font-weight: bold;*/
+}
+
+.button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+.editdeck {
+  background-color: #04AA6D;
+  color: white;
+  padding: 5px 20px;
+  margin: 3px 0;
+  border: none;
+  cursor: pointer;
+  /*width: 30%;*/
+}
+
+
+.alert{
+  padding: 5px 16px;
+}
+
+#alertError{
+  background-color: #f66161;
+  font-size: 20px;
+}
+
+#alertSuccess{
+  background-color: #38f5aa;
+  font-size: 20px;
+}

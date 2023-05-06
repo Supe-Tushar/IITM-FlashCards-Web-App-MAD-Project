@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a class="active" href="/login">Login</a>
+		<a href="/signup">Sign Up</a>
+	</div>
+
+    <h1>Login Form</h1>
+
+    {% include 'flashMessage.html' %}
+
+    <form action="/login" method="post">
+        <div class="container">
+            <label for="uname"><b>Username: </b></label>
+            <br />
+            <input type="text" placeholder="Enter Username" name="uname" required>
+            <br />
+            <br />
+            <label for="password"><b>Password: </b></label>
+            <br />
+            <input type="password" placeholder="Enter Password" name="password" required>
+            <br />
+            <br />
+            <br />
+            <button type="submit" class="submit_button" >Login</button>
+        </div>
+    </form>
+
+</body>
+</html>

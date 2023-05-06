@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Report</title>
+    <meta name="description" content="FlashCards Progress Report">
+  </head>
+
+  <body>
+    <article id="cover">
+      <h1>Flashcards</h1>
+      <address>
+        Visit: http://127.0.0.1:5000/
+      </address>
+      <address>
+        {{ data['useremail'] }}
+      </address>
+    </article>
+
+    <article id="chapter">
+      <h2 id="chapter-title">{{ data['username'] }}'s Progress Card</h2>
+    </article>
+
+    <article id="contents">
+      <h2>Deck-wise Progress</h2>
+        {% for deck in data['decks'] %}
+      <h3>Deck 1: {{ deck['deckname'] }}</h3>
+      <ul>
+        <li>Overall score: {{ deck['oscore'] }}</li>
+        <li>Last reviewed time: {{ deck['ltime'] }}</li>
+        <li>Last reviewed score: {{ deck['lscore'] }}</li>
+      </ul>
+        {% endfor %}
+    </article>
+
+  <article id="contents">
+      <h2>Card-wise Progress</h2>
+      {% for card in data['cards'] %}
+      <h3>Deck: {{ card['deckname'] }}</h3>
+      <ul>
+        <li>Question: {{ card['question'] }}</li>
+        <li>Answer: {{ card['answer'] }}</li>
+        <li>Last reviewed time: {{ card['ltime'] }}</li>
+        <li>Last reviewed score: {{ card['lscore'] }}</li>
+      </ul>
+      {% endfor %}
+    </article>
+
+  </body>
+  <style>
+
+@page {
+  @top-left {
+    background: #fbc847;
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+  }
+  @top-center {
+    background: #fbc847;
+    content: '';
+    display: block;
+    height: .05cm;
+    opacity: .5;
+    width: 100%;
+  }
+  @top-right {
+    content: string(heading);
+    font-size: 9pt;
+    height: 1cm;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+@page :blank {
+  @top-left { background: none; content: '' }
+  @top-center { content: none }
+  @top-right { content: none }
+}
+@page no-chapter {
+  @top-left { background: none; content: none }
+  @top-center { content: none }
+  @top-right { content: none }
+}
+@page :first {
+  background: url(/static/img/report.jpg) no-repeat center;
+  background-size: cover;
+  margin: 0;
+}
+@page chapter {
+  background: #fbc847;
+  margin: 0;
+  @top-left { content: none }
+  @top-center { content: none }
+  @top-right { content: none }
+}
+
+html {
+  color: #393939;
+  font-family: Fira Sans;
+  font-size: 11pt;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+h1 {
+  color: #fbc847;
+  font-size: 38pt;
+  margin: 5cm 2cm 0 2cm;
+  page: no-chapter;
+  width: 100%;
+}
+h2, h3, h4 {
+  color: black;
+  font-weight: 400;
+}
+h2 {
+  break-before: always;
+  font-size: 28pt;
+  string-set: heading content();
+}
+h3 {
+  font-weight: 300;
+  font-size: 15pt;
+}
+h4 {
+  font-size: 13pt;
+}
+
+#cover {
+  align-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  height: 297mm;
+}
+#cover address {
+  background: #fbc847;
+  flex: 1 50%;
+  margin: 0 -2cm;
+  padding: 1cm 0;
+  white-space: pre-wrap;
+}
+#cover address:first-of-type {
+  padding-left: 3cm;
+}
+#contents {
+  break-before: right;
+  break-after: left;
+  page: no-chapter;
+}
+#contents h2 {
+  font-size: 20pt;
+  font-weight: 400;
+  margin-bottom: 3cm;
+}
+#contents h3 {
+  font-weight: 500;
+  margin: 3em 0 1em;
+}
+#contents h3::before {
+  background: #fbc847;
+  content: '';
+  display: block;
+  height: .08cm;
+  margin-bottom: .25cm;
+  width: 2cm;
+}
+#contents ul {
+  list-style: none;
+  padding-left: 0;
+}
+#contents ul li {
+  border-top: .25pt solid #c1c1c1;
+  margin: .25cm 0;
+  padding-top: .25cm;
+}
+#contents ul li::before {
+  color: #fbc847;
+  content: '• ';
+  font-size: 40pt;
+  line-height: 16pt;
+  vertical-align: bottom;
+}
+#contents ul li a {
+  color: inherit;
+  text-decoration-line: inherit;
+}
+#chapter {
+  align-items: center;
+  display: flex;
+  height: 297mm;
+  justify-content: center;
+  page: chapter;
+}
+
+  </style>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/editDeck.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
+    <title>Edit Deck</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+    <h1>Edit Deck - {{ deckname }}</h1>
+
+    <button type="button" class="editdeck" onclick="location.href='/deck/{{ deckid }}/edit_desc'" >
+         Edit Deck Description</button>
+
+    {% include 'flashMessage.html' %}
+
+    <div class="tableBlock">
+        <table id = "all_decks" class="table">
+                <tr>
+                    <th style="width: 60px;">Srno</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                    <th style="width: 200px;">Last Reviewed Time</th>
+                    <th style="width: 60px;">Last Reviewed Score</th>
+                    <th style="width: 60px;">Edit</th>
+                    <th style="width: 60px;">Delete</th>
+                </tr>
+
+                {% for card in cards %}
+                <tr>
+                    <td>{{ loop.index0 + 1 }}</td>
+                    <td>{{ card.question }}</td>
+                    <td>{{ card.answer }}</td>
+                    <td>{{ card.ltime|timestamp_to_datetime }}</td>
+                    <td>{{ card.lscore }}</td>
+                    <td><a href="/deck/{{ deckid }}/card/{{ card.cardid }}/edit" type="button">Edit</a></td>
+                    <td><a href="/deck/{{ deckid }}/card/{{ card.cardid }}/delete" type="button">Delete</a></td>
+                </tr>
+                {%  endfor %}
+
+		</table>
+    </div>
+
+    <div class="addcard">
+        <br />
+        <button type="button" class="button" id="addCard" onclick="location.href='/deck/{{ deckid }}/card/add'" >
+         Add a card to this deck</button>
+        <br />
+    </div>
+
+</body>
+</html>

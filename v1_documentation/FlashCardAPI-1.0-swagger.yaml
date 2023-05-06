@@ -1,0 +1,1071 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Deck Management API for Flash-card App
+  description: >-
+    This is a deck management API  ( Decks and Cards ) for MAD-I Final project:
+    'Flash-card App'
+
+    <h2> Flash Card Database Model </h2> 
+    <h3> 1] 'Users' Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>userid</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>username</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>      
+      </tbody>
+    </table>
+
+    <h3> 2] 'Deck' Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>deckid</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>deckname</td>
+        <td>String</td>
+        <td>Not Null (unique per userid)</td>
+      </tr>
+      <tr>
+        <td>deckdesc</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>      
+      <tr>
+        <td>ltime</td>
+        <td>Integer</td>
+        <td>(time is stored as timestamp in int format)</td>
+      </tr>
+      <tr>
+        <td>lscore</td>
+        <td>Float</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>oscore</td>
+        <td>Float</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>userid</td>
+        <td>Integer</td>
+        <td>Foreign Key (users.userid), Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+
+    <h3> 3] 'Cards' Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>cardid</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>question</td>
+        <td>String</td>
+        <td>Not Null (unique per deckid)</td>
+      </tr>
+      <tr>
+        <td>answer</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>ltime</td>
+        <td>Integer</td>
+        <td>(time is stored as timestamp in int format)</td>
+      </tr>
+      <tr>
+        <td>lscore</td>
+        <td>Float</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>deckid</td>
+        <td>Integer</td>
+        <td>Foreign Key (deck.deckid), Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+
+servers:
+  # Added by API Auto Mocking Plugin
+  #- description: SwaggerHub API Auto Mocking
+  #  url: https://virtserver.swaggerhub.com/s_Tushar/FlashCardAPI/1.0
+  - description: Replit API server (default)
+    url: http://0.0.0.0:8080/
+    
+    
+paths:
+  /api/deck:
+    description: End point to create deck resource or get all decks data of current user for dashboard 
+    get:
+      description: Operation to get deck data including cards for all decks of current user.
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: deck data List
+                type: object
+                properties:
+                  deckidList:
+                    type: array
+                    items:
+                      properties:
+                        deckid:
+                          type: integer
+                          example: 1
+                        deckname:
+                          type: string
+                          example: Deck A
+                        deckdesc:
+                          type: string
+                          example: This is Deck A
+                        ltime:
+                          type: integer
+                          example: 1637913605
+                        lscore:
+                          type: number
+                          example: 3.5
+                        oscore:
+                          type: number
+                          example: 3.5
+                        userid:
+                          type: integer
+                          example: 1
+                        cards:
+                          type: array
+                          items:
+                            properties:
+                              cardid:
+                                type: integer
+                                example: 1
+                              question:
+                                type: string
+                                example: Question 1
+                              answer:
+                                type: string
+                                example: Answer 1
+                              ltime:
+                                type: integer
+                                example: 1637913605
+                              lscore:
+                                type: number
+                                example: 3.5
+                              deckid:
+                                type: integer
+                                example: 1
+           
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Deck not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck for current user does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+
+    post:
+      description: Operation to create the deck resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deckname:
+                  type: string
+                  example: Deck A
+                deckdesc:
+                  type: string
+                  example: This is deck A
+      responses:
+        '201':
+          description: Successfuly Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck successfully added to database
+                  category:
+                    type: string
+                    example: success
+                  status:
+                    type: integer
+                    example: 201
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '400':
+          description: Input data is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck name and deck description must be string
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+        '409':
+          description: Data already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck name already exists. Choose different deck name
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 409
+                    
+  /api/deck/{deckid}:
+    description: End point to read, update and delete a deck resource
+    get:
+      description: Operation to get deck data including cards when deckid is passed.
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: deck object
+                type: object
+                properties:
+                  deckid:
+                    type: integer
+                    example: 1
+                  deckname:
+                    type: string
+                    example: Deck A
+                  deckdesc:
+                    type: string
+                    example: This is Deck A
+                  ltime:
+                    type: integer
+                    example: 1637913605
+                  lscore:
+                    type: number
+                    example: 3.5
+                  oscore:
+                    type: number
+                    example: 3.5
+                  userid:
+                    type: integer
+                    example: 1
+                  cards:
+                    type: array
+                    items:
+                      properties:
+                        cardid:
+                          type: integer
+                          example: 1
+                        question:
+                          type: string
+                          example: Question 1
+                        answer:
+                          type: string
+                          example: Answer 1
+                        ltime:
+                          type: integer
+                          example: 1637913605
+                        lscore:
+                          type: number
+                          example: 3.5
+                        deckid:
+                          type: integer
+                          example: 1
+           
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Deck Id not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck for the given deckid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+        '400':
+          description: Input Deck Id is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+      
+    put:
+      description: Operation to update the deck resource.
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deckdesc:
+                  type: string
+                  example: This is edited description
+                ltime:
+                  type: integer
+                  example: 1637913605
+                lscore:
+                  type: number
+                  example: 3.5
+      responses:
+        '200':
+          description: Successfuly updated
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/deckdesc'
+                  - $ref: '#/components/schemas/deckscores'
+                  
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Deck Id not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck for the given deckid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+        '400':
+          description: Input Deck Id is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+                    
+    delete:
+      description: Operation to delete the deck resource
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successfuly updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck and respective cards successfully deleted
+                  category:
+                    type: string
+                    example: success
+                  status:
+                    type: integer
+                    example: 200
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Deck Id not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck for the given deckid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+        '400':
+          description: Input Deck Id is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+                    
+  /api/deck/{deckname}:
+    description: End point to get a deck resource from deckname
+    get:
+      description: Operation to get deck data including cards when deckname is passed instead of deckid.
+      parameters:
+        - in: path
+          name: deckname
+          required: true
+          schema:
+            type: string
+            example: Deck A
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: deck object
+                type: object
+                properties:
+                  deckid:
+                    type: integer
+                    example: 1
+                  deckname:
+                    type: string
+                    example: Deck A
+                  deckdesc:
+                    type: string
+                    example: This is Deck A
+                  ltime:
+                    type: integer
+                    example: 1637913605
+                  lscore:
+                    type: number
+                    example: 3.5
+                  oscore:
+                    type: number
+                    example: 3.5
+                  userid:
+                    type: integer
+                    example: 1
+                  cards:
+                    type: array
+                    items:
+                      properties:
+                        cardid:
+                          type: integer
+                          example: 1
+                        question:
+                          type: string
+                          example: Question 1
+                        answer:
+                          type: string
+                          example: Answer 1
+                        ltime:
+                          type: integer
+                          example: 1637913605
+                        lscore:
+                          type: number
+                          example: 3.5
+                        deckid:
+                          type: integer
+                          example: 1
+           
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Deck name not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deck for the given deckname does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+                    
+                    
+  /api/deck/{deckid}/card/{cardid}:
+    description: Url to get, update and delete the cards resource.
+    get:
+      description: Operation to get cards resource
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: cardid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: cards object
+                type: object
+                properties:
+                  cardid:
+                    type: integer
+                    example: 1
+                  question:
+                    type: string
+                    example: Question 1
+                  answer:
+                    type: string
+                    example: Answer 1
+                  ltime:
+                    type: integer
+                    example: 1637913605
+                  lscore:
+                    type: number
+                    example: 3.5
+                  deckid:
+                    type: integer
+                    example: 1
+           
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Card not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Card for the given deckid and cardid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+        '400':
+          description: Input data is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid and cardid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+
+    put:
+      description: Operation to update the card resource.
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: cardid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  example: Q 1
+                answer:
+                  type: string
+                  example: A 1
+                ltime:
+                  type: integer
+                  example: 1637913605
+                lscore:
+                  type: number
+                  example: 3.5
+      responses:
+        '200':
+          description: Successfuly updated
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/cardanswer'
+                  - $ref: '#/components/schemas/cardscores'
+                  
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Card not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Card for given cardid and deckid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+        '400':
+          description: Input data is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid and cardid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+                    
+                    
+    delete:
+      description: Operation to delete the deck resource
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: cardid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successfuly deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Card successfully deleted
+                  category:
+                    type: string
+                    example: success
+                  status:
+                    type: integer
+                    example: 200
+                  
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '404':
+          description: Card not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Card for given cardid and deckid does not exist
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 404
+                    
+  /api/deck/{deckid}/card:
+    description: Url to add new card in deck
+    post:
+      description: Operation to create new card
+      parameters:
+        - in: path
+          name: deckid
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  example: Card Question
+                answer:
+                  type: string
+                  example: Card Answer
+      responses:
+        '201':
+          description: Successfuly Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Card successfully added to deck
+                  category:
+                    type: string
+                    example: success
+                  status:
+                    type: integer
+                    example: 201
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal Server Error
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 500
+        '400':
+          description: Input data is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Input deckid must be positive integer
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 400
+        '409':
+          description: Card already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: For the given question a card already exists in the deck. Question for a deck must be unique
+                  category:
+                    type: string
+                    example: error
+                  status:
+                    type: integer
+                    example: 409
+                    
+components:
+  schemas:
+    deckdesc:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Deck description successfully edited
+        category:
+          type: string
+          example: success
+        status:
+          type: integer
+          example: 200
+
+    deckscores:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Last reviewed time and scores successfully updated
+        category:
+          type: string
+          example: success
+        status:
+          type: integer
+          example: 200
+          
+    cardanswer:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Card successfully edited
+        category:
+          type: string
+          example: success
+        status:
+          type: integer
+          example: 200
+
+    cardscores:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Last reviewed time and scores for a card successfully updated
+        category:
+          type: string
+          example: success
+        status:
+          type: integer
+          example: 200

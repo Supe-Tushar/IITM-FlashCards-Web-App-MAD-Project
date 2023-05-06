@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/editDeckData.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <title>Edit Deck Data</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+    <h1>Edit Deck Description</h1>
+
+    {% include 'flashMessage.html' %}
+
+    <form action="/deck/{{ deckid }}/edit_desc" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div class="container">
+            <label for="deckname"><b>Deck Name: </b>(can not be edited)</label>
+            <br />
+            <input type="text" placeholder="Enter deck name" name="deckname" value="{{ deckname }}" disabled>
+            <br />
+            <br />
+            <label for="deckdesc"><b>Deck Description: </b></label>
+            <br />
+            <input type="text" placeholder="Enter deck description" name="deckdesc" value="{{ deckdesc }}" required>
+            <br />
+            <br />
+            <br />
+            <button type="submit" class="submit_button">Update</button>
+            <br />
+            <button type="button" class="cancelbtn" onclick="location.href='/deck/{{ deckid }}/edit'" >Cancel</button>
+        </div>
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+flask
+werkzeug
+requests
+sqlalchemy
+Flask-SQLAlchemy
+flask-login
+pandas
+flask_restful

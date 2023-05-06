@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/importDeck.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <title>Import Deck</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+    <h1>Import a deck from CSV file</h1>
+
+    {% include 'flashMessage.html' %}
+
+    <form action="/deck/import" method="post" enctype = "multipart/form-data">
+        <div class="container">
+            <label for="deckname"><b>Deck Name: </b></label>
+            <p style="font-size:12px;">(Deck name must be unique and can't be edited later.)</p>
+            <br />
+            <input type="text" placeholder="Enter deck name" name="deckname" required>
+            <br />
+            <br />
+            <label for="deckdesc"><b>Deck Description: </b></label>
+            <br />
+            <input type="text" placeholder="Enter deck description" name="deckdesc" required>
+            <br />
+            <br />
+            <div class='importfile'>
+                <!--
+                <label><b>Select a file to import:</b></label>
+                <br />
+                <br />
+                <input type="radio"  name="file" value="File_name" required />
+                <label id='radio'>File name</label>
+                -->
+                <label for="uploadfile"><b>Select a CSV file to import:</b></label>
+                <input type="file" id="uploadfile" name="file" required>
+                <p>(Note: CSV file must have header ['Srno', 'Question', 'Answer']) </p>
+                <br />
+                <br />
+		    </div>
+            <br />
+            <button type="submit" class="submit_button">Import Deck</button>
+            <br />
+            <button type="button" class="cancelbtn" onclick="location.href='/dashboard'" >Cancel</button>
+        </div>
+    </form>
+    </div>
+</body>
+</html>

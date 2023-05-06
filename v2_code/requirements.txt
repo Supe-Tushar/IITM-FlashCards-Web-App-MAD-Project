@@ -1,0 +1,15 @@
+flask
+werkzeug
+requests
+sqlalchemy
+Flask-SQLAlchemy
+flask-login
+pandas
+flask_restful
+flask-security
+weasyprint
+pyjwt
+redis
+celery
+celery[redis]
+jinja

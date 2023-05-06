@@ -1,0 +1,185 @@
+
+*{
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+body{
+    background-color: #ebebe0;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: rgba(3, 3, 3, 0.86);
+  margin: 5px;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: Arial;
+
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #1259ef;
+  color: white;
+}
+
+
+
+.container {
+  position: absolute;
+  border: 3px solid black;
+  border-radius: 50px ;
+  padding: 10px;
+  margin: 10px;
+  top: 100px;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  /*border-style:hidden;*/
+}
+
+.card_word {
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 20px ;
+  padding: 5px;
+  margin: 10px;
+  top: 3%;
+  left: 5%;
+  width: 70%;
+  height: 40%;
+}
+
+.word {
+  position: relative;
+  /*font-family: Arial;*/
+  /*font-size: 30px;*/
+  font-size: 5vh;
+  text-align: center;
+  display: block;
+
+}
+
+.answer {
+  position: relative;
+  /*font-family: Arial;*/
+  /*font-size: 25px;*/
+  font-size: 5vh;
+  text-align: center;
+  display: none;
+}
+
+/*.timer{*/
+/*  position: absolute;*/
+/*  border: 1px solid black;*/
+/*  !*font-family: Arial;*!*/
+/*  font-size: 20px;*/
+/*  padding: 10px;*/
+/*  margin: 10px;*/
+/*  top: 3%;*/
+/*  !*left:75%;*!*/
+/*  right: 1%;*/
+/*  width: 15%;*/
+/*  border-style:hidden;*/
+/*}*/
+
+
+
+.difficulty{
+  position: absolute;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  /*width: 80%;*/
+  border-style:hidden;
+}
+
+label{
+  /*font-family: Arial;*/
+  font-size: 20px;
+}
+
+
+.nav_buttons{
+  position: absolute;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  bottom: 3%;
+  left: 5%;
+  right: 5%;
+  /*width: 50%;*/
+  border-style:hidden;
+}
+
+.navitem {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+}
+
+
+.flipcard{
+  position: absolute;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  top: 10%;
+  right: 5%;
+  width: 50%;
+  border-style:hidden;
+}
+
+#flip{
+  float: right;
+}
+
+#prev {
+  float: left;
+}
+
+
+#next{
+  float: right;
+}
+
+
+
+
+.alert{
+  padding: 5px 16px;
+}
+
+#alertError{
+  background-color: #f66161;
+  font-size: 20px;
+}
+
+#alertSuccess{
+  background-color: #38f5aa;
+  font-size: 20px;
+}
+

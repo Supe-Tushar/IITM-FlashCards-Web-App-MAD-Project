@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/static/css/editCard.css" />
+    <script type="text/javascript" src="/static/js/flashMessage.js"></script>
+    <title>Edit Card</title>
+</head>
+<body>
+
+    <div class="topnav">
+		<a href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a>
+	</div>
+
+    <h1>Edit Card</h1>
+
+    {% include 'flashMessage.html' %}
+
+    <form action="/deck/{{ deckid }}/card/{{ cardid }}/edit" method="post">
+        <div class="container">
+            <label for="question"><b>Question: </b></label>
+            <br />
+            <input type="text" placeholder="Enter question text" name="question" value="{{ question }}" required>
+            <br />
+            <br />
+            <label for="answer"><b>Answer: </b></label>
+            <br />
+            <input type="text" placeholder="Enter answer text" name="answer" value="{{ answer }}" required>
+            <br />
+            <br />
+            <br />
+            <button type="submit" class="submit_button">Update card</button>
+            <br />
+            <button type="button" class="cancelbtn" onclick="location.href='/deck/{{ deckid }}/edit'" >Cancel</button>
+        </div>
+    </form>
+
+</body>
+</html>

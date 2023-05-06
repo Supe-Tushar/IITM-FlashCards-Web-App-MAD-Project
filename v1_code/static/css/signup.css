@@ -1,0 +1,90 @@
+
+*{
+  box-sizing: border-box;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: rgba(3, 3, 3, 0.86);
+  margin: 5px;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: Arial;
+
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #1259ef;
+  color: white;
+}
+
+
+body {
+  font-family: Arial;
+}
+
+/*form {*/
+/*  border: 3px solid #f1f1f1;*/
+/*}*/
+
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.submit_button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.password {
+  float: right;
+  padding-top: 16px;
+}
+
+.alert{
+}
+
+.alert{
+  padding: 5px 16px;
+}
+
+#alertError{
+  background-color: #f66161;
+  font-size: 20px;
+}
+
+#alertSuccess{
+  background-color: #38f5aa;
+  font-size: 20px;
+}
